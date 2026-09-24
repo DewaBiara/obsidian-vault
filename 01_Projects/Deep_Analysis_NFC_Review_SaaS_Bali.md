@@ -81,6 +81,14 @@
 
 ## 4. Go-To-Market (GTM) Strategy untuk Bali
 
+### Phase 0: Internal Testbed & Live Prototyping (Unfair Advantage)
+Dewa memiliki dua bisnis operasional aktif di Bali yang menjadi sarana uji coba ideal (*live production lab*):
+1. **Sawana Coffee & Eatery (F&B):**
+   - Testing ground untuk stand meja akrilik, ketahanan chip NFC di area kafe/restoran (tahan tumpahan air/minyak), dan pengujian alur *Smart Reputation Gate* langsung ke pelanggan kafe.
+2. **Villa Lateng Ubud (Hospitality):**
+   - Testing ground untuk plakat resepsionis/villa, verifikasi ulasan tamu mancanegara (wisatawan asing) saat check-out, dan evaluasi integrasi alur check-in/review.
+- **Dampak Strategis:** Menghilangkan *cold-start problem* secara total. Tidak perlu izin atau meyakinkan pihak ketiga untuk tahap awal. Data analitik riil dan foto produk asli bisa langsung didapatkan dari bisnis sendiri sebagai materi portofolio promosi.
+
 ### Phase 1: The "Canggu & Ubud Pilot" (Bulan 1–2)
 1. **Door-to-Door Direct Pitching:** Datang langsung ke kafe-kafe mandiri di Jl. Pantai Batu Bolong, Nelayan, dan Ubud Central.
 2. **The "Trojan Horse" Offer (No-Brainer Pilot):**
