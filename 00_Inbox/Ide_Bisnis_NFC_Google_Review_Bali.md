@@ -63,6 +63,22 @@ Sebagai Backend Engineer, Dewa bisa membangun ekosistem ini dengan sangat *scala
 
 ---
 
+## 🔍 Lanskap Kompetitor (Konteks Bali & Nasional)
+### Pesaing Lokal Bali & Nasional:
+1. **Gotap.id (Basis Kota Denpasar, Bali):**
+   - Menjual kartu NFC Google Review (Rp 95.000) dan Stand Akrilik/PVC di Tokopedia.
+   - *Kelemahan kompetitor:* Menjual produk fisik putus (kartu statis), tanpa platform analitik, tanpa dynamic redirect, dan tanpa perlindungan rating (smart review filter).
+2. **Karya Studio (karyastudio.com/tap) & SAKU Official (sakuofficial.com):**
+   - Pemain nasional yang menjual kartu dan akrilik stand tap review.
+3. **Percetakan Akrilik Custom Tokopedia/Shopee:**
+   - Menjual plakat akrilik + stiker QR & chip NFC polos dengan harga murah (Rp 50.000 – Rp 90.000).
+
+### Celah Pasar (Unfair Advantage Dewa):
+- Kompetitor yang ada **hanya jualan barang fisik/cetakan** (komoditas).
+- Belum ada yang mengombinasikannya dengan **B2B Door-to-Door Agency di Bali + Software Dynamic Gateway** (fitur filter ulasan buruk bintang 1-3 ke WhatsApp manajer resto, analitik meja mana yang paling aktif, dan perubahan link tanpa ganti akrilik).
+
+---
+
 ## 🚀 Rencana Aksi MVP (Next Steps)
 - [ ] Beli 10 pcs sample NFC Tag NTAG213/215 di Shopee/Tokopedia untuk prototyping.
 - [ ] Buat backend redirect sederhana di Go untuk mencatat user-agent, timestamp, dan redirect ke link Google Review tempat favoritmu di Bali.
