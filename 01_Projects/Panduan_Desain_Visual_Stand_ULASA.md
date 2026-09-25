@@ -9,32 +9,34 @@
 
 ## 📐 1. Tata Letak (Layout Hierarchy) Kertas Insert
 
-### Diagram Anatomi Visual Stand A6 (105 x 148 mm):
+### Opsi Rekomendasi Terbaik: Unified Center Target (NFC + QR Disatukan di Tengah)
+Menggabungkan kotak QR Code dan Target Chip NFC tepat di tengah menciptakan **satu titik fokus (single focal point)**. Pengunjung tidak bingung memilih; baik yang ingin menempelkan HP (NFC) maupun yang mengarahkan kamera (QR Scan) langsung tertuju ke satu kotak target di tengah:
+
 ```
 +-----------------------------------------------------------+
-|                                                           |  <- Margin atas: 15mm
-|                 [ LOGO SAWANA / RESTO ]                   |  <- Lebar logo: 35-40mm (Center)
 |                                                           |
-|                   Enjoyed Your Time?                      |  <- Font Serif (Playfair Display / Georgia), 16pt
-|                Bagikan Pengalaman Anda                    |  <- Font Sans (Inter / Plus Jakarta Sans), 10pt
+|                 [ LOGO SAWANA / RESTO ]                   |  <- ATAS (25%): Logo tempat usaha
 |                                                           |
-|                         ╭─────╮                           |
-|                         │ 📳  │                           |  <- LINGKARAN TARGET TAP
-|                         │ TAP │                           |     Diameter: 40mm
-|                         ╰─────╯                           |     Warna aksen: Warm Gold / Forest Green
-|                                                           |     (Chip NFC NTAG213 ditempel persis di belakang ini)
-|                     TAP PHONE HERE                        |  <- All-caps, Bold, Tracking lebar, 9pt
-|               Tempelkan HP Anda di Sini                   |  <- Font Sans, 8pt, warna abu gelap
+|                   Enjoyed Your Time?                      |  <- Heading: Font Serif (Playfair Display)
+|                Bagikan Pengalaman Anda                    |  <- Subheading: Font Sans (Inter)
 |                                                           |
-| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |  <- Garis pemisah halus (opsional)
+|                    ╭─────────────╮                        |
+|                    │  (( 📳 ))   │                        |  <- BADGE NFC KECIL
+|                 ┌──┴─────────────┴──┐                     |
+|                 │  ┌─────────────┐  │                     |  <- KOTAK TARGET DI TENGAH:
+|                 │  │  [QR CODE]  │  │                     |     QR Code dengan logo icon NFC di tengahnya.
+|                 │  │    ( 📳 )   │  │                     |     (Stiker chip NFC NTAG213 ditempel tepat
+|                 │  └─────────────┘  │                     |      di BELAKANG kotak QR Code ini).
+|                 └───────────────────┘                     |
 |                                                           |
-|    ┌───────┐     Kamera tanpa NFC?                        |
-|    │  QR   │     Scan QR Code di samping                  |  <- QR Code ukuran 22x22mm di pojok kiri bawah
-|    └───────┘                                              |
+|                 TAP OR SCAN TO REVIEW                     |  <- Call to Action Tunggal & Jelas
+|          Tempelkan HP atau Scan Kamera Anda               |
 |                                                           |
-|                                         Powered by ULASA  |  <- Watermark kecil di pojok kanan bawah (7pt)
+| ───────────────────────────────────────────────────────── |
+|                                                           |
+|                     POWERED BY ULASA                      |  <- Footer Bersih & Minimalis
 +-----------------------------------------------------------+
-  [═══════════════════════════════════════════════════════]    <- Tatakan Kayu Pinus (Wooden Base)
+  [═══════════════════════════════════════════════════════]    <- Tatakan Kayu Pinus Alami
 ```
 
 ---
