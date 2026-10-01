@@ -8,7 +8,6 @@
 > **Testbed & Domain:** F&B Cloud POS (Sawana Coffee & Eatery, Ubud, Bali)  
 > **Stack:** Go (Backend Modular Monolith), PostgreSQL (ACID Ledger), Redis (Streams & Cache), Next.js / Vite React PWA (Offline-First Cashier UI)
 > **Design System:** Zinc Neutral (`#09090B`), Emerald Primary (`#059669`), Espresso Amber (`#D97706`), Lucide Icons (`1.75px` stroke)
-> **Tautan Terkait:** [[01_Projects/Riset_Arsitektur_MokaPOS_dan_Desain_Sistem_POS]] | [[01_Projects/Arsitektur_dan_Strategi_POS_System_Bali]]
 
 ---
 
@@ -352,43 +351,75 @@ CREATE INDEX idx_raw_materials_outlet ON raw_materials (outlet_id);
 
 ## 4. Key Business Logic & Algorithms
 
-### A. Idempotent Ingestion Pattern (Go Handler)
+### A. Idempotent Ingestion Pattern (Clean Architecture UseCase)
 ```go
-// IngestOrder handles orders submitted by POS edge tablets.
-// It is completely idempotent via client_order_uuid.
-func (s *OrderService) IngestOrder(ctx context.Context, req dto.CreateOrderRequest) (*domain.Order, error) {
-    tx, err := s.db.BeginTx(ctx, pgx.TxOptions{})
-    if err != nil {
-        return nil, err
-    }
-    defer tx.Rollback(ctx)
+package usecase
 
-    var existingID uuid.UUID
-    err = tx.QueryRow(ctx, `
-        SELECT id FROM orders WHERE client_order_uuid = $1
-    `, req.ClientOrderUUID).Scan(&existingID)
+import (
+	"context"
+	"kula-pos/internal/core/domain"
+	"kula-pos/internal/core/ports"
+)
 
-    if err == nil {
-        // Order already ingested in an earlier attempt: return existing record gracefully
-        return s.GetOrderByID(ctx, existingID)
-    }
+type CheckoutUseCase struct {
+	txManager      ports.TxManager
+	orderRepo      ports.OrderRepository
+	shiftRepo      ports.ShiftRepository
+	eventPublisher ports.EventPublisher
+}
 
-    // 1. Insert Order
-    // 2. Insert Order Items & Modifiers
-    // 3. Insert Payment Record
-    // 4. Update Shift Cash if Tender == CASH
-    // 5. Commit Transaction
-    if err := tx.Commit(ctx); err != nil {
-        return nil, err
-    }
+func NewCheckoutUseCase(
+	tx ports.TxManager, 
+	order ports.OrderRepository, 
+	shift ports.ShiftRepository, 
+	pub ports.EventPublisher,
+) ports.CheckoutUseCase {
+	return &CheckoutUseCase{
+		txManager:      tx,
+		orderRepo:      order,
+		shiftRepo:      shift,
+		eventPublisher: pub,
+	}
+}
 
-    // 6. Asynchronously publish event to Redis Stream for Recipe BOM deduction
-    s.eventBus.Publish(ctx, "orders.completed", domain.OrderCompletedEvent{
-        OrderID: newOrder.ID,
-        Items:   req.Items,
-    })
+func (uc *CheckoutUseCase) ProcessCheckout(ctx context.Context, cmd domain.CheckoutCommand) (*domain.Order, error) {
+	// 1. Idempotency Check: if order already processed at edge, return without re-charging
+	existing, err := uc.orderRepo.FindByClientUUID(ctx, cmd.ClientOrderUUID)
+	if err == nil && existing != nil {
+		return existing, nil
+	}
 
-    return newOrder, nil
+	var createdOrder *domain.Order
+
+	// 2. Execute within atomic business transaction managed by outbound port
+	err = uc.txManager.WithinTransaction(ctx, func(txCtx context.Context) error {
+		order, err := uc.orderRepo.CreateOrder(txCtx, cmd)
+		if err != nil {
+			return err
+		}
+
+		if cmd.PaymentTender == domain.TenderCash {
+			if err := uc.shiftRepo.AddCashSales(txCtx, cmd.ShiftID, cmd.TotalAmount); err != nil {
+				return err
+			}
+		}
+
+		createdOrder = order
+		return nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	// 3. Asynchronously emit OrderCompletedEvent to Redis Stream for Recipe BOM deduction
+	_ = uc.eventPublisher.Publish(ctx, "orders.completed", domain.OrderCompletedEvent{
+		OrderID:   createdOrder.ID,
+		OutletID:  createdOrder.OutletID,
+		Items:     cmd.Items,
+	})
+
+	return createdOrder, nil
 }
 ```
 
