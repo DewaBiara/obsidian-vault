@@ -1,17 +1,18 @@
 # 🥩 Riset & Analisis Bisnis: Ugra Grill (Ugra Creative / Ugra Recycle)
 
 - **Tanggal Dibuat:** 2026-10-06
-- **Penggagas:** [[Dewa Biara]]
+- **Owner:** Risma
+- **Konsultan:** [[Dewa Biara]] & Thena
 - **Status:** Selesai & Disimpan
-- **Kategori:** `#business-analysis` `#manufacturing` `#bali-market` `#bbq-industry` `#competitor-analysis`
+- **Kategori:** `#business-analysis` `#manufacturing` `#bali-market` `#bbq-industry` `#competitor-analysis` `#swot`
 - **Tautan Terkait:** [[00_Inbox/Ide_Bisnis_NFC_Google_Review_Bali]] | [[01_Projects/Master_Business_Plan_ULASA_ke_Software_House]]
 
 ---
 
 ## 📌 1. Profil & Model Bisnis Ugra Grill
 - **Entitas:** Ugra Grill / Ugra Creative (didirikan ~2021).
+- **Owner:** Risma.
 - **Lokasi Workshop:** Batubulan, Sukawati, Gianyar, Bali (Jl. Pagutan / Jl. Ida Bagus Japa; Gmaps: *GRILL UGRA BATUBULAN*).
-- **Founder / PIC:** Oka Sanjaya (+ tim Ugra Creative).
 - **Model Bisnis:** Manufaktur lokal & bengkel fabrikasi kustom alat panggangan outdoor / barbecue grill hardware (bukan bisnis kuliner F&B, melainkan produsen alat masak).
 - **Karakteristik Produk:**
   - *Ugra Double Grill Series* (Classic, Mini, Complete, Max + Folding Table).
@@ -22,50 +23,57 @@
 
 ---
 
-## 📈 2. Analisis Peluang Bisnis (Market Opportunity)
-1. **Ekosistem Pariwisata & Hospitality Bali:**
-   - Ribuan villa sewaan harian, *private estate*, *glamping site*, dan kafe/beach club di Bali (Ubud, Canggu, Seminyak, Uluwatu) secara rutin membutuhkan fasilitas BBQ untuk *guest experience* atau *private party*.
-2. **Tren *Backyard BBQ & Slow-Smoked Meat*:**
-   - Komunitas pencinta kuliner luar ruangan (*outdoor cooking*, *smoked brisket*, *ribs*) di Indonesia terus berkembang, mencari unit *offset smoker* dan *charcoal grill* berkualitas dengan harga lokal yang rasional.
-3. **Margin Manufaktur Lokal yang Tinggi:**
-   - Dibandingkan produk impor pabrikan yang terkena bea masuk dan rantai distribusi panjang, fabrikasi lokal berbasis *upcycled metal* memiliki HPP kompetitif dengan margin kotor (>50% - 60%).
+## 📊 2. Analisis SWOT Ugra Grill
+
+### Kekuatan (Strengths)
+- **Kualitas & Ketahanan Material:** Menggunakan plat besi tebal dan kawat galvanis anti-karat, jauh lebih awet daripada panggangan seng tipis impor.
+- **Fleksibilitas Kustomisasi:** Mampu memodifikasi bentuk, ukuran, tambahan meja lipat, dan fitur khusus sesuai permintaan konsumen.
+- **Basis di Bali:** Dekat dengan episentrum hospitality nasional (villa, resort, private chef, kafe outdoor).
+
+### Kelemahan (Weaknesses)
+- **Ketergantungan Operasional pada Owner (Risma):** Proses penjualan, admin, dan koordinasi bengkel masih sangat bergantung pada satu orang.
+- **Branding & Visual Konten Belum Menjual Pengalaman:** Konten media sosial masih berfokus pada fisik besi di bengkel, belum memperlihatkan pengalaman memanggang (*appetite appeal*).
+- **Ketiadaan Katalog Terstruktur:** Calon konsumen korporat/villa kesulitan melihat spesifikasi teknis dan pricelist secara instan.
+
+### Peluang (Opportunities)
+- **Pasar B2B Villa & Hospitality Management di Bali:** Ribuan unit villa sewa harian membutuhkan unit BBQ kokoh untuk fasilitas tamu.
+- **Pertumbuhan Tren Backyard BBQ & Smoked Meat:** Komunitas penikmat daging asap (*low & slow*) mencari unit smoker lokal dengan harga terjangkau.
+- **Pasar Kargo Antarpulau:** Peluang ekspansi ke Lombok, Jawa Timur, dan kota besar lain dengan desain *knock-down* (bongkar-pasang).
+
+### Ancaman (Threats)
+- **Fluktuasi Harga Logam/Besi:** Kenaikan harga material dapat menekan margin kotor.
+- **Serbuan Panggangan Seng Murah:** Konsumen awam sering tergiur harga murah di e-commerce (Rp 100rb-an) meski cepat rusak.
+- **Tingginya Ongkos Kargo Produk Utuh:** Bobot dan volume panggangan besi yang berat membatasi penjualan luar pulau jika belum berbentuk *knock-down*.
 
 ---
 
-## ⚔️ 3. Analisis Pesaing (Competitor Landscape)
+## 🚀 3. Apa yang Perlu Dilakukan Risma untuk Berkembang?
 
-### A. Pesaing Lokal (Bali & Domestik)
-1. **Bengkel Las / Fabrikasi Besi Lokal (Custom Metal Fabricators):**
-   - *Karakteristik:* Bengkel las umum di Bali yang bisa membuat panggangan berdasarkan contoh foto.
-   - *Kelemahan:* Tidak memiliki *branding* spesifik untuk BBQ, desain kurang terstandarisasi, finishing sering kurang rapi.
-   - *Posisi Ugra:* Ugra sudah memiliki *brand identity* khusus (*Ugra Grill*) dan portofolio produk yang matang di Instagram & Facebook Marketplace lokal.
-2. **Produsen Custom Offset Smoker Spesialis (Jawa / Jakarta):**
-   - *Contoh:* Komunitas pembuat *offset smoker* custom di Jawa (seperti Dourok Indonesia, dll.).
-   - *Kelemahan:* Biaya kirim ke Bali sangat tinggi karena berat dan volume besar.
-   - *Peluang Ugra:* Menguasai pasar *intra-Bali* dan Indonesia Timur dengan keunggulan ongkos kirim yang lebih efisien dan layanan COD/antar langsung.
-
-### B. Pesaing Produk Pabrikan Massal / Ritel Modern
-1. **Brand Impor Global (Weber, Char-Broil, Big Green Egg):**
-   - *Distribusi:* Ditemukan di ACE Hardware / RupaRupa / Department Store besar di Bali.
-   - *Karakteristik:* Desain sangat rapi, standar internasional, tetapi harga sangat tinggi (jutaan hingga puluhan juta rupiah) dan suku cadang terbatas.
-   - *Segmen Ugra:* Menargetkan konsumen menengah, villa komersial *mid-tier*, dan pebisnis F&B yang membutuhkan unit kerja berat (*heavy duty*) dengan harga lokal yang lebih bersahabat dan bisa dikustomisasi.
-2. **Panggangan Portable Murah (Maspion, Tanica, Produk Tanpa Merek):**
-   - *Karakteristik:* Dijual di e-commerce seharga Rp 100rb – Rp 300rb, terbuat dari plat seng tipis.
-   - *Kelemahan:* Sangat tipis, mudah berkarat dalam beberapa bulan pemakaian di iklim tropis Bali, tidak cocok untuk *heavy usage* di villa/restoran.
-   - *Posisi Ugra:* Berada di kelas premium-lokal (*heavy duty* / tebal), bersaing pada durabilitas jangka panjang.
+1. **Ubah Arah Konten Pemasaran (Shift ke Lifestyle BBQ):**
+   - Buat video pendek (Reels/TikTok) saat panggangan digunakan memasak: steak mendesis (*sizzle*), ribs dengan *smoke ring*, atau sate lilit. Tunjukkan kemudahan membersihkan abu (*ash tray*) dan ketahanan panasnya.
+2. **Paket Solusi B2B untuk Pengelola Villa ("Villa BBQ Station Kit"):**
+   - Jual satu paket lengkap: Unit Grill + Rak/Meja Lipat + Cover Kain Waterproof + Starter Kit Arang Briket. Dekati property manager villa di Canggu, Ubud, dan Seminyak.
+3. **Susun Katalog Digital & Pricelist Profesional:**
+   - Siapkan PDF / landing page ringkas yang memuat foto HD, dimensi (P x L x T), ketebalan plat, kapasitas porsi, dan daftar harga transparan.
+4. **Ciptakan Pendapatan Berulang (*Recurring Consumables*):**
+   - Karena panggangan awet bertahun-tahun, sediakan produk habis pakai: arang briket batok kelapa grade premium, *wood chunks* lokal Bali (kayu kopi/rambutan), sikat pembersih kawat, dan jasa servis/pembersihan berkala.
 
 ---
 
-## 🚀 4. Strategi Baru & Rekomendasi Eksekusi
+## 🧠 4. Skill & Hal yang Harus Dipelajari / Dikuasai Risma
 
-1. **Transformasi Konten: Dari "Bengkel Besi" ke "Lifestyle & Culinary Experience":**
-   - Ubah fokus visual media sosial (IG/TikTok) dari sekadar menyorot fisik besi mentah menjadi video proses memanggang (*sizzling action*, *smoke ring* pada brisket, *grilling steaks*) yang membangkitkan selera (*appetite appeal*).
-2. **Paket B2B Khusus Villa & Hospitality Management:**
-   - Buat *bundle package* khusus pengelola villa: **"Villa BBQ Station Kit"** (Unit Grill Tebal + Meja Lipat / Rak Arang + Waterproof Cover + Starter Kit Arang Briket). Tawarkan pemeliharaan berkala atau garansi pengelasan.
-3. **Katalog Digital & Kalkulator / Lembar Spesifikasi Profesional:**
-   - Ganti blog gratisan WordPress dengan landing page bersih atau katalog PDF interaktif yang merinci dimensi, ketebalan plat, berat, kapasitas porsi, dan harga transparan agar mudah dibagikan via WhatsApp kepada klien korporat/villa.
-4. **Ekosistem *Recurring Revenue* (Consumables):**
-   - Manfaatkan produk tahan lama (*one-time purchase*) ini dengan menjual produk habis pakai pendukung:
-     - Arang briket batok kelapa premium (tahan lama, minim asap mengganggu).
-     - *Wood chunks* (kayu buah/kopi lokal Bali) untuk penambah aroma *smoke*.
-     - Sikat pembersih grill khusus dan *heavy-duty waterproof cover*.
+1. **Digital Marketing & Pembuatan Konten Singkat:**
+   - Belajar cara membuat video berdurasi 15-30 detik dengan visual menarik (*lighting*, *sound sizzle*), copywriting yang memicu nafsu makan, dan dasar-dasar iklan berbayar (Meta Ads) dengan target geografis Bali.
+2. **Literasi Keuangan & Kalkulasi HPP (Cost Accounting):**
+   - Memisahkan rekening pribadi dan bisnis. Menghitung HPP per unit secara akurat (material besi, cat tahan panas, kawat las, jam kerja tukang, dan overhead) agar margin keuntungan tetap terjaga aman (>50%).
+3. **Keahlian Negosiasi & Penjualan B2B:**
+   - Mempelajari cara menjalin hubungan kerja sama (*networking*) dengan agen villa, event organizer (EO), vendor katering, dan asosiasi kuliner di Bali.
+4. **Manajemen Kualitas Produksi (Quality Control SOP):**
+   - Menetapkan standar baku pengelasan, ketahanan cat anti-panas (*hi-temp* 600°C), dan pengemasan produk agar setiap unit yang keluar dari bengkel memiliki kualitas yang konsisten.
+
+---
+
+## 🔍 5. Area Tambahan untuk Analisis Lanjutan
+1. **Analisis Struktur Biaya Riil per Model Produk.**
+2. **Riset Desain Knock-Down (Bongkar-Pasang) untuk Efisiensi Kargo Antarpulau.**
+3. **Uji Ketahanan Korosi Khusus Kawasan Pesisir Pantai Bali.**
