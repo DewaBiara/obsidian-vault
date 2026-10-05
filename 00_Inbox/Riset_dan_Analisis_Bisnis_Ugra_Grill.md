@@ -4,7 +4,7 @@
 - **Owner:** Risma
 - **Konsultan:** [[Dewa Biara]] & Thena
 - **Status:** Selesai & Disimpan
-- **Kategori:** `#business-analysis` `#manufacturing` `#bali-market` `#bbq-industry` `#competitor-analysis` `#swot`
+- **Kategori:** `#business-analysis` `#manufacturing` `#bali-market` `#bbq-industry` `#competitor-analysis` `#swot` `#recurring-revenue`
 - **Tautan Terkait:** [[00_Inbox/Ide_Bisnis_NFC_Google_Review_Bali]] | [[01_Projects/Master_Business_Plan_ULASA_ke_Software_House]]
 
 ---
@@ -55,8 +55,8 @@
    - Jual satu paket lengkap: Unit Grill + Rak/Meja Lipat + Cover Kain Waterproof + Starter Kit Arang Briket. Dekati property manager villa di Canggu, Ubud, dan Seminyak.
 3. **Susun Katalog Digital & Pricelist Profesional:**
    - Siapkan PDF / landing page ringkas yang memuat foto HD, dimensi (P x L x T), ketebalan plat, kapasitas porsi, dan daftar harga transparan.
-4. **Ciptakan Pendapatan Berulang (*Recurring Consumables*):**
-   - Karena panggangan awet bertahun-tahun, sediakan produk habis pakai: arang briket batok kelapa grade premium, *wood chunks* lokal Bali (kayu kopi/rambutan), sikat pembersih kawat, dan jasa servis/pembersihan berkala.
+4. **Implementasikan Ekosistem *Recurring Consumables*:**
+   - Ubah Ugra Grill dari sekadar pembuat hardware menjadi penyedia bahan bakar dan aksesoris BBQ langganan.
 
 ---
 
@@ -73,7 +73,29 @@
 
 ---
 
-## 🔍 5. Area Tambahan untuk Analisis Lanjutan
-1. **Analisis Struktur Biaya Riil per Model Produk.**
-2. **Riset Desain Knock-Down (Bongkar-Pasang) untuk Efisiensi Kargo Antarpulau.**
-3. **Uji Ketahanan Korosi Khusus Kawasan Pesisir Pantai Bali.**
+## 🔥 5. Blueprint Recurring Consumables: Pengungkit Profit Berkelanjutan
+
+### A. Mengapa Consumables Pilihan Terbaik? (Perspektif Bisnis)
+- **Frekuensi Pembelian Tinggi:** Panggangan besi awet 3–7 tahun (one-off purchase), sedangkan arang dan kayu habis setiap 1–2 kali memanggang.
+- **Tingginya Margin Kotor:** Margin arang briket batok kelapa dan wood chunks berkisar antara 40% – 60% tanpa proses pengelasan yang rumit.
+- **Arus Kas Terprediksi (Predictable Cash Flow):** Mengamankan pendapatan rutin tiap bulan tanpa perlu terus membakar biaya promosi untuk mencari pembeli baru (*zero CAC on existing buyers*).
+
+### B. Lini Produk Consumables
+1. **Briket Arang Batok Kelapa Premium (Coconut Charcoal Briquettes):**
+   - Standar ekspor: abu putih tipis, tanpa bau kimia, panas stabil >2–3 jam.
+2. **Wood Chunks Lokal Bali (Kayu Kopi Kintamani & Rambutan):**
+   - Kayu keras kering khusus pengasapan daging. Memberikan aroma smokey khas yang diminati ekspatriat dan pecinta BBQ.
+3. **Eco Fire Starters:**
+   - Lilin serutan kayu natural untuk memudahkan menyalakan bara tanpa bau minyak tanah.
+4. **Maintenance & Wearables:**
+   - Sikat kawat kuningan, pelindung waterproof panggangan, dan tray penampung abu cadangan.
+
+### C. Model Skema Penjualan
+- **Langganan B2B Villa (*Villa Restock Pack*):** Paket bulanan (misal 20–40 kg arang + 2 pack wood chunks) untuk manajemen villa di Bali.
+- **Bundling Starter Pack:** Setiap pembelian panggangan baru otomatis ditawarkan paket "Siap Panggang Hari Ini" (+5 kg arang, fire starter, capitan).
+- **Weekly Reminder WhatsApp:** Pesan berkala setiap hari Kamis: *"Persiapan BBQ akhir pekan? Pesan arang & wood chunks hari ini untuk dikirim besok!"*.
+
+### D. Simulasi LTV: One-Off vs Consumables
+- **Tanpa Consumables:** 30 villa beli panggangan @ Rp 1.500.000 = Rp 45.000.000 (sekali seumur hidup produk).
+- **Dengan Consumables:** 30 villa konsumsi arang & wood chunks @ Rp 250.000/bulan = Rp 7.500.000/bulan (Rp 90.000.000/tahun berulang dengan margin bersih ~45%).
+- **Kesimpulan:** Nilai ekonomi consumables melampaui penjualan unit fisiknya hanya dalam waktu 1–2 tahun.
