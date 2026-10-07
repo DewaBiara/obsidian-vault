@@ -7,35 +7,32 @@ Sistem pelacakan lamaran kerja untuk posisi **Backend Engineer / Backend Develop
 ## 📊 Pipeline Summary
 - **Target Role:** Mid/Senior Backend Engineer (Go, Node.js/NestJS, PostgreSQL, Redis, GCP Cloud Run, Distributed Systems)
 - **Work Mode:** Full Remote (Nasional / Global) atau On-Site (Bali)
-- **CV Active Version:** `I_Dewa_Gde_Putra_Anga_Biara_CV_ATS_Clean.pdf` (Tersimpan di `/workspace/docs/`)
+- **Active Offer Status:** **ACCEPTED & SIGNED** (OneByOne Logistical — Start 7 Nov 2026)
 
 ---
 
-## 📋 Active Application Funnel
+## 🏆 Current Active Position / Offer
 
-### 1. In Review / Screening
-*Belum ada lamaran aktif yang dicatat.*
-
-### 2. Technical Assessment / Take-Home Test
-*Belum ada.*
-
-### 3. User / Culture Interview
-*Belum ada.*
-
-### 4. Final Offer
-*Belum ada.*
+### OneByOne Logistical
+* **Posisi:** Backend Engineer
+* **Supervisor:** Marvin Christian (Technical Lead)
+* **Kantor Basis:** Sunset Bureau, Seminyak, Bali (3 days WFO, 2 days WFH)
+* **Kompensasi:** IDR 6.500.000 GROSS / bulan
+* **Fasilitas:** Laptop kerja disediakan, makan siang saat WFO, tiket dinas domestik/internasional ditanggung
+* **Periode Kontrak:** 6 Bulan (Mulai 7 November 2026)
+* **Fokus Proyek:** Managed service logistics tech, enterprise integrations (CargoWise/SAP), backend APIs, data control
+* **Status:** ✅ **Offer Signed & Accepted** (7 Oktober 2026)
 
 ---
 
-## 🗃️ Riwayat Lamaran Lengkap
+## 🗃️ Riwayat Lamaran
 
 | No | Tanggal Apply | Perusahaan | Posisi | Model Kerja | Sumber Lowongan | Status | Catatan / Next Step |
 |---|---|---|---|---|---|---|---|
-| - | - | - | - | - | - | - | - |
+| 1 | Oktober 2026 | OneByOne Logistical | Backend Engineer | Hybrid Bali (3 WFO Seminyak / 2 WFH) | Direct Offer | **Accepted & Signed** | Start 7 Nov 2026. Handover notice 1 bulan di kantor lama sedang berjalan. |
 
 ---
 
 ## 💡 Quick Actions
-- Setiap ada lowongan menarik dari bot cron alert (channel `#job-alert` jam 10:00 WITA), beri tahu Thena:
-  > *"Thena, masukkan lamaran ke [Nama PT] posisi [Nama Posisi] via [LinkedIn/Glints/Jobstreet]."*
 - File CV & Portofolio siap kirim tersedia di direktori: `/workspace/docs/`
+- Dokumen Notice Letter 1 bulan tersimpan di: `/workspace/docs/One_Month_Notice_Letter_Dewa_Biara.docx`
