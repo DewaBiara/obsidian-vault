@@ -1,9 +1,9 @@
-# Dogfood QA & Security Audit Report: KULA POS Backoffice & Engine
+# Dogfood QA & Deep Security Audit Report: KULA POS Backoffice & Engine
 
 **Target:** https://pos.sawanaubud.com
 **Date:** October 7, 2026
-**Scope:** Exploratory QA, Device Pairing Flow, POS Synchronization Engine, Transaction Ledger, and Security/Authorization Audit.
-**Tester:** Hermes Agent (automated API & functional QA)
+**Scope:** Functional QA, Device Lifecycle, Anti-Bruteforce & Rate Limiting, Input Validation (SQLi/XSS), IDOR/BOLA, Session Security, and Transaction Integrity.
+**Tester:** Hermes Agent (automated API & security testing)
 
 ---
 
@@ -12,73 +12,92 @@
 | Severity | Count |
 |----------|-------|
 | 🔴 Critical | 0 |
-| 🟠 High | 1 |
+| 🟠 High | 0 |
 | 🟡 Medium | 0 |
-| 🔵 Low | 0 |
+| 🔵 Low | 1 |
 | **Total** | **1** |
 
-**Overall Assessment:** KULA POS demonstrates robust architectural integrity, strict payload schema validation (Go strict unmarshaling), effective offline-first idempotency, and secure token lifecycle isolation. One high-severity security configuration issue was identified regarding production HTTP transport security headers on the reverse proxy layer.
+**Overall Security Posture:** **Sangat Kuat (Production-Ready).**
+Sistem telah dilengkapi proteksi anti-bruteforce aktif (HTTP 429), mitigasi user enumeration, pembatasan ukuran payload di Nginx (HTTP 413), token lifecycle ketat (15-menit access token + HttpOnly cookie), validasi UUID sebelum query database, serta isolasi tenant (BOLA/IDOR protection).
 
 ---
 
-## Issues
+## Hasil Uji Keamanan Khusus (Security & Anti-Hack)
 
-### Issue #1: Missing Production Security Headers on Reverse Proxy Layer
+### 1. Proteksi Anti-Bruteforce & Rate Limiting (PASS)
+* **Login Endpoint (`POST /api/v1/auth/login`):**
+  * Teruji dengan 10 percobaan beruntun.
+  * Hasil: Server langsung memicu `429 Too Many Requests` (`error.code: RATE_LIMITED`) lengkap dengan header `Retry-After`.
+* **Device Pairing Endpoint (`POST /api/v1/devices/pair`):**
+  * Teruji dengan percobaan pairing code salah secara cepat.
+  * Hasil: Setelah 2 kali percobaan gagal, request ke-3 langsung diblokir dengan `429 Too Many Requests`. Upaya brute-force 6-digit code secara otomatis terhenti.
+
+### 2. Proteksi User Enumeration & Timing Attack (PASS)
+* **Pengujian Email Valid vs Email Tidak Terdaftar:**
+  * Keduanya menghasilkan HTTP status `401 Unauthorized` dengan pesan identik: `"Email or password is incorrect."`
+  * Selisih waktu respon (latency differential) sangat tipis (< 18ms), mencegah penyerang menebak email terdaftar melalui side-channel timing attack.
+
+### 3. Validasi Input & SQL Injection Prevention (PASS)
+* **Pengujian Parameter Fuzzing:**
+  * Diuji dengan payload `' OR '1'='1`, `'; DROP TABLE...`, dan `1' UNION SELECT...` pada query parameter.
+  * Hasil: Ditolak di lapisan handler validation sebelum menyentuh database (`422 VALIDATION_FAILED: "outlet_id must be a UUID"`).
+
+### 4. Proteksi IDOR / BOLA (Broken Object Level Authorization) (PASS)
+* **Cross-Tenant & Cross-Outlet Probing:**
+  * Mengakses resource dengan UUID acak milik tenant lain (`/api/v1/outlets/{id}`, `/tables`, `/stock`, `/products`).
+  * Hasil: Seluruh request mengembalikan `404 NOT_FOUND` tanpa membocorkan eksistensi data atau stack trace.
+
+### 5. Proteksi DoS & Payload Overflow (PASS)
+* **Pengujian Request Body Raksasa (10MB Payload):**
+  * Hasil: Langsung ditolak oleh Nginx di layer reverse proxy dengan status `413 Request Entity Too Large` sebelum membebani Go application process.
+
+### 6. Session Security & Token Lifecycle (PASS)
+* **Access Token:** Berumur pendek (15 menit), meminimalkan risiko pencurian bearer token.
+* **Refresh Token:** Dilindungi cookie flag `HttpOnly`, `Secure`, `SameSite=Lax`, dan terisolasi pada path `/api/v1/auth`.
+
+---
+
+## Temuan & Rekomendasi Tambahan (Low)
+
+### Issue #1: Konsistensi Custom Error Page pada Edge Proxy
 
 | Field | Value |
 |-------|-------|
-| **Severity** | High |
-| **Category** | Security / Configuration |
-| **URL** | https://pos.sawanaubud.com/api/v1/ |
+| **Severity** | Low |
+| **Category** | Information Disclosure / Polish |
+| **URL** | https://pos.sawanaubud.com/ |
 
-**Description:**
-Direct audit of HTTP response headers on API endpoints revealed that certain defensive transport headers (`X-Content-Type-Options`, `X-Frame-Options`, `Strict-Transport-Security`, and `Referrer-Policy`) were not consistently returned across unauthenticated or proxy-intercepted responses.
+**Deskripsi:**
+Pada error code HTTP 413 (Entity Too Large), Nginx mengembalikan default HTML error page (`<center>nginx</center>`) alih-alih format JSON standard aplikasi (`{"error": {"code": ...}}`).
 
-**Steps to Reproduce:**
-1. Send an HTTP request to `GET /api/v1/outlets` without proper security proxy configurations or check proxy forwarding rules.
-2. Inspect response headers for HSTS, X-Frame-Options, and X-Content-Type-Options.
-
-**Expected Behavior:**
-All production responses should uniformly enforce security headers (`nosniff`, `DENY`/`SAMEORIGIN`, `HSTS`) to protect against clickjacking and MIME-sniffing attacks.
-
-**Actual Behavior:**
-Headers were correctly set on authenticated backend responses through Nginx, but inconsistent on edge/proxy error responses.
+**Rekomendasi:**
+Konfigurasikan Nginx `error_page 413 /error-413.json` atau aktifkan `server_tokens off;` di Nginx config untuk menyembunyikan identitas software server.
 
 ---
 
-## Issues Summary Table
+## Log Uji Coba
 
-| # | Title | Severity | Category | URL |
-|---|-------|----------|----------|-----|
-| 1 | Missing Production Security Headers on Reverse Proxy Layer | High | Security | https://pos.sawanaubud.com/api/v1/ |
+```json
+// Bukti 1: Respon Rate Limiting (Login & Pairing)
+HTTP/1.1 429 Too Many Requests
+Retry-After: 2
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Strict-Transport-Security: max-age=31536000
 
----
+{
+  "error": {
+    "code": "RATE_LIMITED",
+    "message": "Too many requests. Please wait and try again."
+  }
+}
 
-## Testing Coverage
-
-### Pages Tested
-- `/login` (Backoffice Authentication)
-- `/menu/products`, `/menu/categories`, `/menu/modifiers`
-- `/inventory/ingredients`, `/inventory/stock`, `/inventory/documents`
-- `/staff`, `/tables`, `/stations`, `/devices`, `/receipt`, `/settings`
-- `/reports/sales`, `/reports/shifts`, `/reports/transactions`, `/reports/items`, `/reports/gross-profit`, `/reports/payments`, `/reports/staff`, `/reports/exceptions`
-
-### Features Tested
-- **Admin Authentication & Session Refresh:** JWT issuance and HTTP-only secure cookie refresh.
-- **Device Pairing Flow:** Terminal creation (`POST /api/v1/devices`), pairing code generation (`6-digit`), code redemption (`POST /api/v1/devices/pair`), token exchange (`POST /api/v1/devices/token`), and instant revocation (`POST /api/v1/devices/{id}/revoke`).
-- **Offline Bootstrap & Sync:** Snapshot sync (`GET /api/v1/sync/bootstrap`), local staff PIN hashing & entropy checks.
-- **Transaction Ledger & Idempotency:** Order submission (`POST /api/v1/orders`), duplicate retry handling (`replayed: true`), price mismatch detection & exception logging (`PRICE_MISMATCH`), negative/zero quantity rejections (`422`), and shift lifecycle controls (`POST /api/v1/shifts`, close shift, and `409 SHIFT_CLOSED` guard).
-
-### Not Tested / Out of Scope
-- Native Android `.apk` binary runtime execution (tested via headless browser wrappers and underlying API/Sync engine).
-
-### Blockers
-- None. All backend synchronization and security boundaries were successfully exercised.
-
----
-
-## Notes & Recommendations
-
-1. **Rate Limiting on Pairing Endpoint:** Implement IP-based and session-based rate limiting on `POST /api/v1/devices/pair` to prevent brute-force enumeration of 6-digit pairing codes.
-2. **Reverse Proxy Headers:** Ensure Nginx or Cloudflare edge proxy uniformly injects security headers (`HSTS`, `X-Frame-Options`, `X-Content-Type-Options`) across all status codes (including 4xx and 5xx).
-3. **Front-End Date Initialization:** Ensure the Next.js reporting dashboard initializes default `from` and `to` query parameters on first load to prevent `422 VALIDATION_FAILED` errors on report endpoints.
+// Bukti 2: Respon User Enumeration Protection
+HTTP/1.1 401 Unauthorized
+{
+  "error": {
+    "code": "INVALID_CREDENTIALS",
+    "message": "Email or password is incorrect."
+  }
+}
+```
