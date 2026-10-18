@@ -61,9 +61,9 @@ OPENROUTER_API_KEY=your_openrouter_key
 OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
 OPENROUTER_MODEL=anthropic/claude-3.5-sonnet
 
-# Worker LLM (OmniRouter)
+# Worker LLM (OmniRouter - Deployed on Same VPS)
 OMNIROUTER_API_KEY=your_omnirouter_key
-OMNIROUTER_BASE_URL=https://omnirouter-api.cc/v1
+OMNIROUTER_BASE_URL=http://127.0.0.1:3000/v1  # Sesuaikan dengan port OmniRouter lokal
 OMNIROUTER_MODEL=deepseek-v4-pro
 
 # Server Config
