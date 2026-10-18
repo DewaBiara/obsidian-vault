@@ -29,19 +29,22 @@ User berkomunikasi melalui **Discord** dengan **Thena (Chief of Staff)**. Thena 
                        └────────────┬────────────┘
                                     │ (REST / Webhook API)
                                     ▼
-       ═════════════════════════════════════════════════════════════
-       │            OFFICE MANAGER AGENT (Orchestrator)            │
-       │       (Model: Claude 3.5 Sonnet via OpenRouter)           │
-       ═════════════════════════════════════════════════════════════
-              │                     │                     │
-      ┌───────┴──────┐      ┌───────┴──────┐      ┌───────┴──────┐
-      │ DEPARTEMEN   │      │ DEPARTEMEN   │      │ DEPARTEMEN   │
-      │ RISET & DATA │      │ KONTEN & ADS │      │ OPERASIONAL  │
-      └───────┬──────┘      └───────┬──────┘      └───────┬──────┘
-              ▼                     ▼                     ▼
-     [Market Analyst]       [Copywriter]           [SOP & Policy]
-     [Competitor Scout]     [Hook & Scriptwriter]  [Customer Service]
-     [Financial Auditor]    [Visual Prompt Eng]    [Lead Outreach]
+       ═════════════════════════════════════════════════════════════════════════════════════
+       │                      OFFICE MANAGER AGENT (Orchestrator)                          │
+       │                 (Model: Claude 3.5 Sonnet via OpenRouter)                         │
+       ═════════════════════════════════════════════════════════════════════════════════════
+              │                      │                      │                      │
+      ┌───────┴──────┐       ┌───────┴──────┐       ┌───────┴──────┐       ┌───────┴──────────┐
+      │ DEPARTEMEN   │       │ DEPARTEMEN   │       │ DEPARTEMEN   │       │ RIKALA TECH      │
+      │ RISET & DATA │       │ KONTEN & ADS │       │ OPERASIONAL  │       │ ENGINEERING DIV  │
+      └───────┬──────┘       └───────┬──────┘       └───────┬──────┘       └───────┬──────────┘
+              ▼                      ▼                      ▼                      ▼
+     [Market Analyst]        [Copywriter]           [SOP & Policy]         [Product Manager]
+     [Competitor Scout]      [Hook & Scriptwriter]  [Customer Service]     [UI/UX Designer]
+     [Financial Auditor]     [Visual Prompt Eng]    [Lead Outreach]        [Backend Architect]
+                                                                           [Frontend Engineer]
+                                                                           [QA & Sec Auditor]
+                                                                           [DevOps Specialist]
 ```
 
 ### Departemen 1: Riset Pasar & Data Intelligence (`Dept-Research`)
@@ -64,10 +67,33 @@ User berkomunikasi melalui **Discord** dengan **Thena (Chief of Staff)**. Thena 
 
 ### Departemen 3: Operasional & Outreach Bisnis (`Dept-Operations`)
 1. **Agent: SOP & System Architect**
-   - **Tugas:** Menyusun dokumen SOP standar karyawan fisik (barista, housekeeping villa, admin kasir) dan spesifikasi arsitektur teknis sistem backend.
+   - **Tugas:** Menyusun dokumen SOP standar karyawan fisik (barista, housekeeping villa, admin kasir) dan panduan kepatuhan operasional.
    - **Model:** Claude 3.5 Sonnet (OpenRouter).
 2. **Agent: B2B Lead Outreach & Cold Messenger**
    - **Tugas:** Membaca database lead (hasil scraper Google Maps Canggu/Seminyak/Ubud) dan menghasilkan draf penawaran personal untuk WhatsApp/Email/Instagram DM.
+
+### Departemen 4: Rikala Tech Engineering Division (`Dept-Engineering`)
+*Divisi khusus untuk mengeksekusi end-to-end software development project internal maupun klien Rikala Tech.*
+
+1. **Agent: Product Manager (PM Agent)**
+   - **Tugas:** Mengubah ide mentah/kebutuhan klien menjadi PRD (*Product Requirement Document*), User Stories, kriteria penerimaan (*Acceptance Criteria*), dan breakdown scope per modul/sprint.
+   - **Model:** Claude 3.5 Sonnet via OpenRouter (High Context & Semantic Reasoning).
+   - **Output:** File markdown PRD terstruktur lengkap dengan user journey.
+2. **Agent: UI/UX Designer Agent**
+   - **Tugas:** Menghasilkan spesifikasi arsitektur informasi, wireframe text-spec, dan Design System Tokens (skema warna Tailwind, font hierarchy, component spacing, layout behavior) yang siap diterjemahkan langsung oleh Frontend.
+   - **Model:** Claude 3.5 Sonnet / GPT-4o.
+3. **Agent: Backend Architect & Engineer**
+   - **Tugas:** Merancang arsitektur API (OpenAPI/Swagger 3.0), skema database relasional (PostgreSQL DDL / Prisma schema), caching strategy (Redis), idempotency key handling, dan struktur clean code (Go / NestJS / Node.js).
+   - **Model:** DeepSeek Coder / Claude 3.5 Sonnet via OmniRouter/OpenRouter.
+4. **Agent: Frontend Engineer**
+   - **Tugas:** Membangun antarmuka pengguna interaktif (React, Next.js, Vite SPA, Tailwind CSS), integrasi REST/GraphQL API hooks, form validation (Zod/React Hook Form), serta memastikan responsivitas layar mobile/desktop.
+   - **Model:** DeepSeek V4 / Claude 3.5 Sonnet.
+5. **Agent: QA & Security Auditor**
+   - **Tugas:** Merancang skenario pengujian komprehensif (Unit Test, Integration Test, E2E Test Cases via Playwright/Jest), melakukan audit celah keamanan (OWASP Top 10, Auth RBAC, SQL injection prevention, idempotency race condition).
+   - **Model:** Claude 3.5 Sonnet via OpenRouter.
+6. **Agent: DevOps & Release Engineer**
+   - **Tugas:** Menghasilkan `Dockerfile` multi-stage build yang ringan, `docker-compose.yml`, CI/CD workflow (GitHub Actions), serta panduan deployment ke GCP Cloud Run atau VPS.
+   - **Model:** DeepSeek / GPT-4o-mini via OmniRouter.
 
 ---
 
@@ -126,6 +152,15 @@ Setiap instruksi dari Dewa Biara di Discord mengikuti alur siklus kerja 5 tahap:
    - Manager Agent memeriksa apakah hook sudah memenuhi kaidah retensi penonton 3 detik pertama dan sesuai tone of voice Sawana. Jika kurang memuaskan, Manager menginstruksikan revisi internal otomatis.
 5. **Human Approval Delivery:**
    - Thena merangkum hasil akhir ke Discord lengkap dengan opsi: `[Approve]`, `[Revisi]`, atau `[Simpan ke Notion]`.
+
+### B. Workflow Khusus Divisi Tech (Rikala Tech Software Pipeline):
+Jika tugasnya adalah membangun fitur/aplikasi baru (misal: *"Buatkan modul split bill untuk Sawana POS"*):
+1. **PM Agent:** Merilis PRD, daftar endpoint yang dibutuhkan, dan acceptance criteria.
+2. **UI/UX Designer Agent:** Merancang token komponen Tailwind, layout form/tabel, dan micro-interaction flow.
+3. **Backend Architect Agent:** Menghasilkan file migration PostgreSQL, skema Prisma/Go struct, endpoint handler dengan validasi input & idempotency logic.
+4. **Frontend Engineer Agent:** Mengonsumsi skema API dan merangkai komponen React/Next.js UI.
+5. **QA & Security Auditor Agent:** Menjalankan automated test, mengecek race condition, dan menerbitkan checklist "Ready to Merge / Deploy".
+6. **Delivery:** Thena melaporkan ke Dewa Biara di Discord dengan ringkasan PRD, diff kode, dan hasil test pass 100%.
 
 ---
 
