@@ -5,7 +5,7 @@
 - **Konsultan:** [[Dewa Biara]] & Thena
 - **Status:** Selesai & Disimpan
 - **Kategori:** `#business-analysis` `#manufacturing` `#bali-market` `#bbq-industry` `#competitor-analysis` `#swot` `#recurring-revenue`
-- **Tautan Terkait:** [[00_Inbox/Ide_Bisnis_NFC_Google_Review_Bali]] | [[01_Projects/Master_Business_Plan_ULASA_ke_Software_House]]
+- **Tautan Terkait:** [[00_Inbox/Ide_Bisnis_NFC_Google_Review_Bali]] | [[01_Projects/Master_Business_Plan_ULASA_ke_Software_House]] | [[01_Projects/Riset_Ekspor_Ugra_Grill_APAC]]
 
 ---
 
