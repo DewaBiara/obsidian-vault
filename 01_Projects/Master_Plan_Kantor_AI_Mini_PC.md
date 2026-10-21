@@ -73,7 +73,7 @@ User berkomunikasi melalui **Discord** dengan **Thena (Chief of Staff)**. Thena 
    - **Tugas:** Membaca database lead (hasil scraper Google Maps Canggu/Seminyak/Ubud) dan menghasilkan draf penawaran personal untuk WhatsApp/Email/Instagram DM.
 
 ### Departemen 4: Rikala Tech Engineering Division (`Dept-Engineering`)
-*Divisi khusus untuk mengeksekusi end-to-end software development project internal maupun klien Rikala Tech dengan **Hybrid Model Architecture** (Claude 3.5 Sonnet + DeepSeek-V3/R1).*
+*Divisi khusus untuk mengeksekusi end-to-end software development project internal maupun klien Rikala Tech dengan **Hybrid Model Architecture** (Claude 3.5 Sonnet + DeepSeek V4.1 Flash 1017 & DeepSeek-R1).*
 
 1. **Agent: Product Manager (PM Agent)**
    - **Tugas:** Mengubah ide mentah/kebutuhan klien menjadi PRD (*Product Requirement Document*), User Stories, kriteria penerimaan (*Acceptance Criteria*), dan breakdown scope per modul/sprint.
@@ -84,16 +84,16 @@ User berkomunikasi melalui **Discord** dengan **Thena (Chief of Staff)**. Thena 
    - **Model:** **Claude 3.5 Sonnet / GPT-4o** via OpenRouter.
 3. **Agent: Backend Architect & Engineer**
    - **Tugas:** Merancang arsitektur API (OpenAPI/Swagger 3.0), skema database relasional (PostgreSQL DDL / Prisma schema), caching strategy (Redis), idempotency key handling, dan struktur clean code (Go / NestJS / Node.js).
-   - **Model:** **DeepSeek-V3** via OmniRouter (Super fast & cost-efficient workhorse).
+   - **Model:** **DeepSeek V4.1 Flash 1017** (`deepseek/deepseek-v4.1-flash-1017`) via OpenRouter (1M context, 8B/16B active CED architecture, native tool calling, ultra-fast & cheap).
 4. **Agent: Frontend Engineer**
-   - **Tugas:** Membangun antarmuka pengguna interaktif (React, Next.js, Vite SPA, Tailwind CSS), integrasi REST/GraphQL API hooks, form validation (Zod/React Hook Form), serta memastikan responsivitas layar mobile/desktop.
-   - **Model:** **DeepSeek-V3** via OmniRouter.
+   - **Tugas:** Membangun antarmuka pengguna interaktif (React, Next.js, Vite SPA, Tailwind CSS), integrasi REST/GraphQL API hooks, form validation (Zod/React Hook Form), serta menerjemahkan visual mockups secara native.
+   - **Model:** **DeepSeek V4.1 Flash 1017** (`deepseek/deepseek-v4.1-flash-1017`) via OpenRouter (Native Vision & 1M Context).
 5. **Agent: QA & Security Auditor**
    - **Tugas:** Merancang skenario pengujian komprehensif (Unit Test, Integration Test, E2E Test Cases via Playwright/Jest), melakukan audit celah keamanan (OWASP Top 10, Auth RBAC, SQL injection prevention, idempotency race condition, edge cases).
-   - **Model:** **DeepSeek-R1** via OmniRouter (Deep reasoning & chain-of-thought code auditing).
+   - **Model:** **DeepSeek-R1** via OmniRouter / OpenRouter (Deep reasoning & chain-of-thought code auditing).
 6. **Agent: DevOps & Release Engineer**
    - **Tugas:** Menghasilkan `Dockerfile` multi-stage build yang ringan, `docker-compose.yml`, CI/CD workflow (GitHub Actions), serta panduan deployment ke GCP Cloud Run atau VPS.
-   - **Model:** **DeepSeek-V3** via OmniRouter.
+   - **Model:** **DeepSeek V4.1 Flash 1017** (`deepseek/deepseek-v4.1-flash-1017`) via OpenRouter.
 
 ---
 
