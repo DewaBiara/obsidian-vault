@@ -783,15 +783,15 @@
             color: var(--gold);
         }
         
-        /* 4. SECTION 4: COSMIC WATER BOND */
+        /* 4. SECTION 4: COSMIC WATER BOND & HOROSCOPE */
         .zodiac-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            padding: 30px 20px;
-            max-width: 360px;
+            padding: 26px 20px;
+            max-width: 380px;
             width: 100%;
-            margin: 0 auto;
+            margin: 0 auto 24px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
             position: relative;
             overflow: hidden;
@@ -802,7 +802,7 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             font-size: 32px;
         }
 
@@ -815,13 +815,94 @@
             font-size: 13px;
             font-weight: 500;
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
         }
 
         .zodiac-text {
             font-size: 14px;
             color: var(--text-muted);
             line-height: 1.7;
+        }
+
+        /* 25th Scorpio Forecast Card */
+        .forecast-card {
+            background: linear-gradient(160deg, #181d29 0%, #11141c 100%);
+            border: 1px solid rgba(244, 63, 94, 0.25);
+            border-radius: 20px;
+            padding: 24px 20px;
+            max-width: 380px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: left;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .forecast-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #f43f5e;
+            background: rgba(244, 63, 94, 0.12);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .forecast-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 16px;
+            line-height: 1.25;
+        }
+
+        .forecast-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .forecast-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 12px 14px;
+        }
+
+        .forecast-item-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold-light);
+            margin-bottom: 4px;
+        }
+
+        .forecast-item p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .forecast-mantra {
+            background: rgba(212, 175, 55, 0.08);
+            border-left: 3px solid var(--gold);
+            padding: 12px 14px;
+            border-radius: 0 10px 10px 0;
+            font-size: 13px;
+            font-style: italic;
+            color: #fef08a;
+            line-height: 1.5;
         }
 
         /* 5. SECTION 5: COUPON BOOK */
@@ -1021,12 +1102,13 @@
             </div>
         </section>
 
-        <!-- SECTION 4: COSMIC WATER BOND -->
+        <!-- SECTION 4: COSMIC WATER BOND & 25TH HOROSCOPE -->
         <section id="zodiacSection">
-            <div class="section-tag">Koneksi & Energi</div>
-            <h2>Satu Frekuensi</h2>
-            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 30px;">Dua zodiak elemen air yang selalu nyambung obrolannya.</p>
+            <div class="section-tag">Koneksi & Astrologi</div>
+            <h2>Satu Frekuensi ✨</h2>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 30px;">Dua zodiak elemen air dan proyeksi energi di usia 25.</p>
 
+            <!-- Card 1: Water Synergy -->
             <div class="zodiac-card">
                 <div class="zodiac-icons">
                     <span>🦂</span>
@@ -1037,6 +1119,42 @@
                 <p class="zodiac-text">
                     Katanya sesama elemen air itu energinya paling cepat klik dan sefrekuensi. Dari obrolan santai, cerita keseharian, sampai hal-hal random, selalu berasa nyaman dan nyambung tanpa harus canggung.
                 </p>
+            </div>
+
+            <!-- Card 2: Scorpio Horoscope at 25 -->
+            <div class="forecast-card">
+                <div class="forecast-badge">✨ Scorpio Horizon • 25th Year</div>
+                <h3 class="forecast-title">Proyeksi Energi Risma di Usia 25</h3>
+
+                <div class="forecast-list">
+                    <div class="forecast-item">
+                        <div class="forecast-item-header">
+                            <span>🌟</span>
+                            <span>Golden Momentum & Karier</span>
+                        </div>
+                        <p>Usia 25 adalah fase akselerasi bagi Scorpio. Rencana dan usaha yang selama ini kamu siapkan dalam diam mulai menunjukkan hasil nyata. Percaya sama kemampuan diri, waktunya langkah besar!</p>
+                    </div>
+
+                    <div class="forecast-item">
+                        <div class="forecast-item-header">
+                            <span>🧘♀️</span>
+                            <span>Inner Peace & Intuisi Makin Mantap</span>
+                        </div>
+                        <p>Kamu semakin tahu apa yang membuatmu nyaman dan berharga. Energi tenang dan mandiri membuat auramu makin berkharisma tanpa perlu berusaha keras.</p>
+                    </div>
+
+                    <div class="forecast-item">
+                        <div class="forecast-item-header">
+                            <span>🌊</span>
+                            <span>Koneksi yang Menghangatkan</span>
+                        </div>
+                        <p>Tahun ini membawa ruang obrolan yang santai dan orang-orang yang tulus mendukungmu. Komunikasi mengalir jujur dan suportif.</p>
+                    </div>
+                </div>
+
+                <div class="forecast-mantra">
+                    "Trust your timing. Usia 25 bukan tentang terburu-buru, tapi tentang melangkah mantap dengan versi terbaik dari dirimu."
+                </div>
             </div>
         </section>
 
@@ -1049,24 +1167,24 @@
             <div class="coupon-grid">
                 <div class="coupon-item" id="coupon1" onclick="claimCoupon(1)">
                     <div class="coupon-info">
-                        <h4>🍦 Traktir Gelato di Massimo Sanur</h4>
-                        <p>Bebas pilih varian rasa favorit yang kamu mau.</p>
+                        <h4>🎧 The Weeknd DJ Takeover</h4>
+                        <p>Bebas kuasai playlist sepanjang jalan tanpa komplain.</p>
                     </div>
                     <div class="coupon-action" id="action1">Klaim</div>
                 </div>
 
                 <div class="coupon-item" id="coupon2" onclick="claimCoupon(2)">
                     <div class="coupon-info">
-                        <h4>🛵 Tiket Jalan Santai & Cari Jajan</h4>
-                        <p>Keliling santai atau mampir jajan sore hari.</p>
+                        <h4>🍽️ Anti-Terserah Food Pass</h4>
+                        <p>Dewa yang cari dan tentuin opsi tempat makan pas kamu bingung.</p>
                     </div>
                     <div class="coupon-action" id="action2">Klaim</div>
                 </div>
 
                 <div class="coupon-item" id="coupon3" onclick="claimCoupon(3)">
                     <div class="coupon-info">
-                        <h4>☕ Sesi Ngopi & Cerita Sepuasnya</h4>
-                        <p>Bebas cerita hal apa pun tanpa batasan waktu.</p>
+                        <h4>🍨 Traktir Gelato di Massimo Sanur</h4>
+                        <p>Date gelato Sanur bebas pilih rasa favorit sebanyak scoop yang kamu mau.</p>
                     </div>
                     <div class="coupon-action" id="action3">Klaim</div>
                 </div>
