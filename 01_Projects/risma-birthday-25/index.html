@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Selamat Ulang Tahun ke-25, Risma ❤️</title>
+    <title>Selamat Ulang Tahun ke-25, Risma ✨</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
             --gold: #D4AF37;
             --gold-light: #F3E5AB;
             --gold-dark: #997A15;
-            --accent-rose: #E8A598;
+            --accent-warm: #E8A598;
             --text-main: #F4F5F7;
             --text-muted: #9CA3AF;
             --border-color: rgba(212, 175, 55, 0.25);
@@ -146,6 +146,7 @@
             font-size: 18px;
             color: var(--gold);
             margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
         h2 {
@@ -153,7 +154,7 @@
             font-size: clamp(32px, 8vw, 42px);
             font-weight: 600;
             color: var(--text-main);
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             line-height: 1.15;
         }
 
@@ -169,9 +170,9 @@
 
         .hero-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(40px, 10vw, 56px);
+            font-size: clamp(38px, 9vw, 52px);
             font-weight: 600;
-            line-height: 1.05;
+            line-height: 1.1;
             margin-bottom: 15px;
             background: linear-gradient(135deg, #FFF 0%, var(--gold-light) 50%, var(--gold) 100%);
             -webkit-background-clip: text;
@@ -265,7 +266,6 @@
             z-index: 3;
         }
 
-        /* Frosting Drips */
         .cake-top-layer::after {
             content: '';
             position: absolute;
@@ -333,7 +333,7 @@
             transform: scale(0.96);
         }
 
-        /* 2. SECTION 2: WAX SEAL ENVELOPE & LOVE LETTER */
+        /* 2. SECTION 2: WAX SEAL ENVELOPE & LETTER */
         .envelope-wrapper {
             width: 100%;
             max-width: 360px;
@@ -416,7 +416,7 @@
 
         .letter-body {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 17px;
+            font-size: 18px;
             line-height: 1.8;
             color: #374151;
             margin-bottom: 25px;
@@ -462,7 +462,7 @@
             width: 100%;
             height: 220px;
             object-fit: cover;
-            background: #e2e8f0;
+            background: #f1f5f9;
             border-radius: 2px;
             display: flex;
             align-items: center;
@@ -594,7 +594,7 @@
         }
 
         footer span {
-            color: var(--accent-rose);
+            color: var(--gold);
         }
     </style>
 </head>
@@ -608,7 +608,7 @@
         <span class="music-text" id="musicLabel">Putar Musik 🎵</span>
     </div>
 
-    <!-- Hidden Audio Element (Royalty-free Soft Romantic Piano Stream) -->
+    <!-- Hidden Audio Element -->
     <audio id="bgAudio" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=gentle-romantic-piano-112145.mp3" type="audio/mpeg">
     </audio>
@@ -618,8 +618,8 @@
         <!-- SECTION 1: HERO -->
         <section id="hero">
             <div class="hero-date">26 OKTOBER 2026</div>
-            <h1 class="hero-title">Selamat Ulang Tahun, Risma ❤️</h1>
-            <p class="hero-desc">Hari ini semesta merayakan bertambahnya usia perempuan hebat yang paling istimewa.</p>
+            <h1 class="hero-title">Selamat Ulang Tahun, Risma ✨</h1>
+            <p class="hero-desc">Hari ini giliran merayakan bertambahnya usia orang yang obrolannya selalu paling nyambung.</p>
 
             <!-- Realistic Birthday Cake -->
             <div class="cake-wrapper">
@@ -638,18 +638,18 @@
                 <div class="cake-plate"></div>
             </div>
 
-            <p style="font-size: 12px; color: var(--gold); margin-bottom: 20px;" id="cakeHint">✨ Ketuk lilin untuk meniupnya & mulai kejutannya!</p>
+            <p style="font-size: 12px; color: var(--gold); margin-bottom: 20px;" id="cakeHint">✨ Ketuk lilin untuk meniupnya!</p>
 
             <button class="btn-primary" onclick="scrollToSection('letterSection')">
-                Buka Surat Cinta 💌
+                Buka Pesan Spesial ✉️
             </button>
         </section>
 
         <!-- SECTION 2: WAX SEAL LETTER -->
         <section id="letterSection">
-            <div class="section-tag">I. Pesan Spesial</div>
-            <h2>Untuk Risma Terkasih</h2>
-            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 25px;">Sebuah surat kecil dari hati yang tulus di hari spesialmu.</p>
+            <div class="section-tag">A Little Note</div>
+            <h2>Untuk Risma ✨</h2>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 25px;">Sebuah catatan kecil dan doa terbaik di hari ulang tahunmu.</p>
 
             <!-- Closed Envelope -->
             <div class="envelope-wrapper" id="envelopeWrapper" onclick="openLetter()">
@@ -657,7 +657,7 @@
                     <div class="wax-seal">R</div>
                     <div class="envelope-text">
                         <h3>Ketuk untuk Membuka Surat</h3>
-                        <p>Segel khusus untuk perempuan berzodiak Scorpio</p>
+                        <p>Catatan khusus untuk perempuan berzodiak Scorpio 😌</p>
                     </div>
                 </div>
             </div>
@@ -666,43 +666,43 @@
             <div class="letter-content" id="letterContent">
                 <div class="letter-body">
                     <p>Hai Risma,</p>
-                    <p>Selamat ulang tahun yang ke-25 ya! Gak terasa waktu berjalan begitu cepat, dan hari ini kamu resmi melangkah ke babak baru dalam hidupmu.</p>
-                    <p>Terima kasih sudah menjadi pribadi yang hebat, tangguh, dan selalu membawa warna di setiap hariku. Kehadiranmu bikin segalanya terasa jauh lebih bermakna—dari obrolan random kita yang selalu nyambung, sampai dukungan tulus yang selalu kamu berikan.</p>
-                    <p>Semoga di usia 25 ini, semua impian dan cita-citamu tercapai satu per satu. Selalu diberi kesehatan, kebahagiaan, dan kelancaran dalam hal apa pun yang sedang kamu kerjakan.</p>
-                    <p>Enjoy your special day, you deserve all the love in this world! ✨</p>
+                    <p>Selamat ulang tahun yang ke-25 ya! Gak terasa hari ini kamu resmi melangkah ke usia seperempat abad.</p>
+                    <p>Jujur, aku senang dan bersyukur bisa kenal sama kamu. Terima kasih ya sudah selalu jadi teman ngobrol yang seru dan nyambung banget—dari topik random sampai hal-hal seru lainnya yang bikin waktu berasa cepet banget kalau lagi ngobrol sama kamu.</p>
+                    <p>Kamu itu pribadi yang hebat, mandiri, dan punya energi positif yang bikin suasana selalu menyenangkan. Di usia 25 ini, aku doakan semoga semua impian, rencana ke depan, dan hal-hal baik yang kamu harapkan bisa terwujud dengan lancar. Selalu diberi kesehatan dan kebahagiaan ya!</p>
+                    <p>Enjoy your special day, semoga tahun ini membawa banyak hal luar biasa buat kamu! ✨</p>
                 </div>
-                <div class="letter-signature">Dari Dewa 🦀</div>
+                <div class="letter-signature">— Dari Dewa 🦀</div>
             </div>
         </section>
 
         <!-- SECTION 3: MEMORY LANE -->
         <section id="memorySection">
-            <div class="section-tag">II. Kenangan Indah</div>
+            <div class="section-tag">Momen Seru</div>
             <h2>Memory Lane</h2>
-            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 30px;">Beberapa potongan momen favorit kita.</p>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 30px;">Beberapa potongan cerita dan rencana seru ke depan.</p>
 
             <div class="polaroid-container">
                 <div class="polaroid-card" style="--rot: -2deg;">
                     <div class="polaroid-img">
-                        <span style="color: #64748b;">🍨 [Foto Gelato / Kenangan]</span>
+                        <span style="color: #64748b;">🍨 [Momen Kuliner / Gelato]</span>
                     </div>
-                    <div class="polaroid-caption">Momen paling manis berdua</div>
+                    <div class="polaroid-caption">Eksplor tempat seru bareng kamu</div>
                 </div>
 
                 <div class="polaroid-card" style="--rot: 2.5deg;">
                     <div class="polaroid-img">
-                        <span style="color: #64748b;">🛵 [Foto Perjalanan / Jalan-jalan]</span>
+                        <span style="color: #64748b;">🛵 [Momen Jalan Santai]</span>
                     </div>
-                    <div class="polaroid-caption">Selalu seru ke mana pun tujuannya</div>
+                    <div class="polaroid-caption">Selalu ada cerita tiap kali jalan bareng</div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION 4: COSMIC WATER BOND -->
         <section id="zodiacSection">
-            <div class="section-tag">III. Ikatan Semesta</div>
-            <h2>Kecocokan Kita</h2>
-            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 30px;">Perpaduan elemen air yang saling menjaga.</p>
+            <div class="section-tag">Koneksi & Energi</div>
+            <h2>Satu Frekuensi</h2>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 30px;">Dua zodiak elemen air yang selalu nyambung obrolannya.</p>
 
             <div class="zodiac-card">
                 <div class="zodiac-icons">
@@ -710,40 +710,40 @@
                     <span style="color: var(--gold); font-size: 20px;">×</span>
                     <span>🦀</span>
                 </div>
-                <div class="zodiac-match-badge">95% Cosmic Match • Water Signs</div>
+                <div class="zodiac-match-badge">Scorpio × Cancer • 95% Match</div>
                 <p class="zodiac-text">
-                    Scorpio (Risma) dan Cancer (Dewa) adalah pasangan elemen air yang paling selaras. Kedalaman emosi, intuisi yang tajam, serta kesetiaan alami membuat kita selalu punya ruang aman untuk saling memahami tanpa banyak kata.
+                    Katanya sesama elemen air itu energinya paling cepat klik dan sefrekuensi. Dari obrolan santai, cerita keseharian, sampai hal-hal random, selalu berasa nyaman dan nyambung tanpa harus canggung.
                 </p>
             </div>
         </section>
 
         <!-- SECTION 5: COUPON BOOK -->
         <section id="couponSection">
-            <div class="section-tag">IV. Special Gift</div>
-            <h2>Kupon Ulang Tahun</h2>
-            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 30px;">Kupon spesial yang bisa kamu klaim kapan saja ke Dewa!</p>
+            <div class="section-tag">Hadiah Spesial</div>
+            <h2>Birthday Pass 🎟️</h2>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 30px;">Kupon santai yang bisa kamu klaim kapan aja ke Dewa!</p>
 
             <div class="coupon-grid">
                 <div class="coupon-item" id="coupon1" onclick="claimCoupon(1)">
                     <div class="coupon-info">
-                        <h4>🍦 Traktir Gelato Massimo Sanur</h4>
-                        <p>Bebas pilih rasa favorit kapan pun kamu mau.</p>
+                        <h4>🍦 Traktir Gelato di Massimo Sanur</h4>
+                        <p>Bebas pilih varian rasa favorit yang kamu mau.</p>
                     </div>
                     <div class="coupon-action" id="action1">Klaim</div>
                 </div>
 
                 <div class="coupon-item" id="coupon2" onclick="claimCoupon(2)">
                     <div class="coupon-info">
-                        <h4>🛵 Tiket Jalan-Jalan Seharian</h4>
-                        <p>Nemenin keliling santai tanpa protes.</p>
+                        <h4>🛵 Tiket Jalan Santai & Cari Jajan</h4>
+                        <p>Keliling santai atau mampir jajan sore hari.</p>
                     </div>
                     <div class="coupon-action" id="action2">Klaim</div>
                 </div>
 
                 <div class="coupon-item" id="coupon3" onclick="claimCoupon(3)">
                     <div class="coupon-info">
-                        <h4>👑 Hak Selalu Benar & Bebas Ngambek</h4>
-                        <p>Spesial 1 hari penuh untuk ratu hari ini.</p>
+                        <h4>☕ Sesi Ngopi & Cerita Sepuasnya</h4>
+                        <p>Bebas cerita hal apa pun tanpa batasan waktu.</p>
                     </div>
                     <div class="coupon-action" id="action3">Klaim</div>
                 </div>
@@ -752,8 +752,8 @@
 
         <!-- FOOTER -->
         <footer>
-            <p>Made with <span>❤️</span> specially for Risma's 25th Birthday</p>
-            <p style="font-size: 11px; color: #6b7280; margin-top: 5px;">Dewa & Risma • 2026</p>
+            <p>Dibuat khusus untuk merayakan ulang tahun Risma ke-25 ✨</p>
+            <p style="font-size: 11px; color: #6b7280; margin-top: 5px;">Dewa • 2026</p>
         </footer>
 
     </div>
