@@ -9,7 +9,121 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- Confetti JS -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js">
+        // THE WEEKND PLAYLIST CONFIG & AUTOPLAY LOGIC
+        const weekndTracks = [
+            {
+                title: "Die For You",
+                album: "Starboy",
+                art: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e2/61/f8/e261f8c1-73db-9a7a-c89e-1068f19970e0/16UMGIM67863.rgb.jpg/300x300bb.jpg",
+                preview: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/50/50/1a/50501a86-bd74-e90d-8a56-68c9b5e6e7d6/mzaf_4588197682084244913.plus.aac.p.m4a"
+            },
+            {
+                title: "Out of Time",
+                album: "Dawn FM",
+                art: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/7c/4f/2d/7c4f2d1e-8418-c2b9-e1ae-cf6860d4ad64/22UMGIM00877.rgb.jpg/300x300bb.jpg",
+                preview: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/79/b8/43/79b84369-15c3-5a5a-fb72-2334b00826e6/mzaf_4381874253449656759.plus.aac.p.m4a"
+            },
+            {
+                title: "Save Your Tears",
+                album: "After Hours",
+                art: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/bb/35/39/bb353980-b0c7-eac5-9509-267feb48d1b3/21UMGIM33221.rgb.jpg/300x300bb.jpg",
+                preview: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/8b/38/17/8b3817e4-c0e9-7e02-2654-3e2ecee93603/mzaf_18415642125637540903.plus.aac.p.m4a"
+            },
+            {
+                title: "I Feel It Coming",
+                album: "Starboy",
+                art: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e2/61/f8/e261f8c1-73db-9a7a-c89e-1068f19970e0/16UMGIM67863.rgb.jpg/300x300bb.jpg",
+                preview: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/71/af/e0/71afe07f-aae7-c4f0-db02-c05be07591d2/mzaf_5960554915698764959.plus.aac.p.m4a"
+            },
+            {
+                title: "Blinding Lights",
+                album: "After Hours",
+                art: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/91/99/d0/9199d073-fa9d-6401-ccab-e281bf052827/19UMGIM92770.rgb.jpg/300x300bb.jpg",
+                preview: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/12/73/ca/1273ca46-233a-5331-189b-25ac1d656533/mzaf_976341070785891411.plus.aac.p.m4a"
+            }
+        ];
+
+        let currentTrackIdx = 0;
+        let isMixtapePlaying = false;
+        const mixtapeAudio = document.getElementById('mixtapeAudio');
+
+        function renderTracklist() {
+            const listEl = document.getElementById('trackList');
+            if (!listEl) return;
+            listEl.innerHTML = weekndTracks.map((t, idx) => `
+                <div class="track-row ${idx === currentTrackIdx ? 'active' : ''}" onclick="selectTrack(${idx})">
+                    <div class="track-row-left">
+                        <span class="track-idx">${idx + 1}</span>
+                        <div class="track-info-mini">
+                            <h5>${t.title}</h5>
+                            <span>${t.album}</span>
+                        </div>
+                    </div>
+                    <div class="track-play-indicator">${idx === currentTrackIdx && isMixtapePlaying ? '🔊' : '▶'}</div>
+                </div>
+            `).join('');
+        }
+
+        function loadTrack(idx) {
+            currentTrackIdx = idx;
+            const t = weekndTracks[idx];
+            document.getElementById('currentAlbumArt').src = t.art;
+            document.getElementById('currentTrackTitle').textContent = t.title;
+            document.getElementById('currentTrackAlbum').textContent = `${t.album} • The Weeknd`;
+            mixtapeAudio.src = t.preview;
+            renderTracklist();
+        }
+
+        function togglePlayMixtape() {
+            if (!mixtapeAudio.src) {
+                loadTrack(0);
+            }
+            if (isMixtapePlaying) {
+                mixtapeAudio.pause();
+                isMixtapePlaying = false;
+                document.getElementById('playPauseBtn').textContent = '▶';
+                document.getElementById('albumArtWrap').classList.remove('playing');
+                document.getElementById('currentTrackCard').classList.remove('playing');
+                renderTracklist();
+            } else {
+                if (isPlaying) toggleMusic();
+                mixtapeAudio.play().then(() => {
+                    isMixtapePlaying = true;
+                    document.getElementById('playPauseBtn').textContent = '⏸';
+                    document.getElementById('albumArtWrap').classList.add('playing');
+                    document.getElementById('currentTrackCard').classList.add('playing');
+                    renderTracklist();
+                }).catch(e => console.log('Autoplay blocked:', e));
+            }
+        }
+
+        function selectTrack(idx) {
+            loadTrack(idx);
+            isMixtapePlaying = false;
+            togglePlayMixtape();
+        }
+
+        function nextTrack() {
+            const next = (currentTrackIdx + 1) % weekndTracks.length;
+            selectTrack(next);
+        }
+
+        function prevTrack() {
+            const prev = (currentTrackIdx - 1 + weekndTracks.length) % weekndTracks.length;
+            selectTrack(prev);
+        }
+
+        function onTrackEnded() {
+            nextTrack();
+        }
+
+        // Initialize mixtape on load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadTrack(0);
+        });
+
+    </script>
     <style>
         :root {
             --bg-deep: #0B0E14;
@@ -433,52 +547,242 @@
             text-align: right;
         }
 
-        /* 3. SECTION 3: POLAROID MEMORY LANE */
-        .polaroid-container {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+        /* 3. SECTION 3: THE WEEKND MIXTAPE JUKEBOX */
+        .mixtape-container {
             width: 100%;
-            max-width: 340px;
+            max-width: 380px;
             margin: 0 auto;
-        }
-
-        .polaroid-card {
-            background: #FFFFFF;
-            padding: 12px 12px 20px 12px;
-            border-radius: 4px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            transform: rotate(var(--rot));
-            transition: transform 0.3s ease;
+            background: linear-gradient(160deg, #1c2230 0%, #11151f 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 24px 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(244, 63, 94, 0.15);
             position: relative;
+            overflow: hidden;
         }
 
-        .polaroid-card:hover {
-            transform: rotate(0deg) scale(1.02);
-            z-index: 10;
+        .mixtape-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
-        .polaroid-img {
+        .mixtape-badge {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #f43f5e;
+            background: rgba(244, 63, 94, 0.12);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+
+        .current-track-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .album-art-wrap {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 2px solid var(--gold);
+            overflow: hidden;
+        }
+
+        .album-art-wrap img {
             width: 100%;
-            height: 220px;
+            height: 100%;
             object-fit: cover;
-            background: #f1f5f9;
+            border-radius: 50%;
+        }
+
+        .album-art-wrap.playing img {
+            animation: spinVinyl 6s linear infinite;
+        }
+
+        @keyframes spinVinyl {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .track-meta {
+            flex-grow: 1;
+            text-align: left;
+            overflow: hidden;
+        }
+
+        .track-meta h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-meta p {
+            font-size: 12px;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+        }
+
+        /* Animated Sound Equalizer */
+        .equalizer-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 14px;
+        }
+
+        .eq-bar {
+            width: 3px;
+            background: #f43f5e;
             border-radius: 2px;
+            height: 4px;
+            transition: height 0.2s ease;
+        }
+
+        .current-track-card.playing .eq-bar:nth-child(1) { animation: bounceEq 0.7s infinite alternate ease-in-out; }
+        .current-track-card.playing .eq-bar:nth-child(2) { animation: bounceEq 0.9s infinite alternate 0.2s ease-in-out; }
+        .current-track-card.playing .eq-bar:nth-child(3) { animation: bounceEq 0.6s infinite alternate 0.4s ease-in-out; }
+        .current-track-card.playing .eq-bar:nth-child(4) { animation: bounceEq 1.1s infinite alternate 0.1s ease-in-out; }
+        .current-track-card.playing .eq-bar:nth-child(5) { animation: bounceEq 0.8s infinite alternate 0.3s ease-in-out; }
+
+        @keyframes bounceEq {
+            0% { height: 3px; }
+            100% { height: 14px; }
+        }
+
+        /* Player Controls */
+        .player-controls {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #64748b;
-            font-size: 13px;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
-        .polaroid-caption {
-            font-family: 'Caveat', cursive;
+        .ctrl-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            font-size: 18px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .ctrl-btn:hover {
+            color: #ffffff;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .ctrl-btn-play {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+            color: #111;
             font-size: 20px;
-            color: #1e293b;
-            margin-top: 12px;
-            text-align: center;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: transform 0.2s ease;
         }
 
+        .ctrl-btn-play:active {
+            transform: scale(0.92);
+        }
+
+        /* Tracklist */
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .track-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .track-row:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .track-row.active {
+            background: rgba(244, 63, 94, 0.1);
+            border-color: rgba(244, 63, 94, 0.35);
+        }
+
+        .track-row-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .track-idx {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 500;
+            width: 16px;
+        }
+
+        .track-row.active .track-idx {
+            color: #f43f5e;
+            font-weight: 700;
+        }
+
+        .track-info-mini h5 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #f1f5f9;
+            margin-bottom: 2px;
+        }
+
+        .track-info-mini span {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .track-play-indicator {
+            font-size: 12px;
+            color: var(--gold);
+        }
+        
         /* 4. SECTION 4: COSMIC WATER BOND */
         .zodiac-card {
             background: var(--bg-card);
@@ -675,26 +979,45 @@
             </div>
         </section>
 
-        <!-- SECTION 3: MEMORY LANE -->
-        <section id="memorySection">
-            <div class="section-tag">Momen Seru</div>
-            <h2>Memory Lane</h2>
-            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 30px;">Beberapa potongan cerita dan rencana seru ke depan.</p>
+        <!-- SECTION 3: THE WEEKND MIXTAPE JUKEBOX -->
+        <section id="mixtapeSection">
+            <div class="section-tag">Risma's Special Mixtape</div>
+            <h2>The Weeknd Favorites 🎧</h2>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 25px;">Tracklist spesial musisi favoritmu untuk nemenin hari ulang tahunmu.</p>
 
-            <div class="polaroid-container">
-                <div class="polaroid-card" style="--rot: -2deg;">
-                    <div class="polaroid-img">
-                        <span style="color: #64748b;">🍨 [Momen Kuliner / Gelato]</span>
-                    </div>
-                    <div class="polaroid-caption">Eksplor tempat seru bareng kamu</div>
+            <div class="mixtape-container">
+                <div class="mixtape-header">
+                    <span class="mixtape-badge">SPECIAL PLAYLIST</span>
+                    <span style="font-size: 12px; color: #94a3b8;">Scorpio Season Vibe 🦂</span>
                 </div>
 
-                <div class="polaroid-card" style="--rot: 2.5deg;">
-                    <div class="polaroid-img">
-                        <span style="color: #64748b;">🛵 [Momen Jalan Santai]</span>
+                <div class="current-track-card" id="currentTrackCard">
+                    <div class="album-art-wrap" id="albumArtWrap">
+                        <img id="currentAlbumArt" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e2/61/f8/e261f8c1-73db-9a7a-c89e-1068f19970e0/16UMGIM67863.rgb.jpg/300x300bb.jpg" alt="The Weeknd Album Art">
                     </div>
-                    <div class="polaroid-caption">Selalu ada cerita tiap kali jalan bareng</div>
+                    <div class="track-meta">
+                        <h4 id="currentTrackTitle">Die For You</h4>
+                        <p id="currentTrackAlbum">Starboy • The Weeknd</p>
+                        <div class="equalizer-bars" id="equalizerBars">
+                            <div class="eq-bar"></div>
+                            <div class="eq-bar"></div>
+                            <div class="eq-bar"></div>
+                            <div class="eq-bar"></div>
+                            <div class="eq-bar"></div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="player-controls">
+                    <button class="ctrl-btn" onclick="prevTrack()" title="Previous">⏮</button>
+                    <button class="ctrl-btn-play" id="playPauseBtn" onclick="togglePlayMixtape()" title="Play/Pause">▶</button>
+                    <button class="ctrl-btn" onclick="nextTrack()" title="Next">⏭</button>
+                </div>
+
+                <!-- Hidden Mixtape Audio Element -->
+                <audio id="mixtapeAudio" onended="onTrackEnded()"></audio>
+
+                <div class="track-list" id="trackList"></div>
             </div>
         </section>
 
