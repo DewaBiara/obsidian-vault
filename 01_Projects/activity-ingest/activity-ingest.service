@@ -1,0 +1,32 @@
+[Unit]
+Description=Activity Ingest (iOS Shortcuts screen-time webhook)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=admin
+Group=admin
+EnvironmentFile=/etc/activity-ingest/env
+WorkingDirectory=/opt/activity-ingest
+ExecStart=/usr/bin/python3 /opt/activity-ingest/server.py
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=activity-ingest
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/opt/activity-ingest
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryMax=128M
+
+[Install]
+WantedBy=multi-user.target
