@@ -245,7 +245,120 @@ CargoWise Outbound (SOAP, 1 URL)
 
 ---
 
-## 6. Workflow Template — Pemicu Outbound
+## 6. Kenapa Bukan Webhook Saja?
+
+Pertanyaan wajar: kalau butuh notifikasi real-time, kenapa tidak pakai webhook?
+
+**Jawaban singkat:** CargoWise *punya* padanan webhook, tapi bukan webhook dalam pengertian modern.
+
+Kalimat persis dari dokumentasi Complect:
+> *"The eAdaptor Outbound Service provides an equivalent to webhooks, sending messages out to a listening SOAP based service."*
+
+Jadi fungsinya seperti webhook (CargoWise push notifikasi saat milestone terpicu), tapi **transport-nya SOAP**, bukan HTTP POST + JSON.
+
+### 5 hambatan teknis
+
+**1. Body-nya SOAP envelope berisi XML ter-gzip**
+Dari diskusi praktisi r/CargoWise: eAdaptor mengirim **HTTPS POST** ke URL outbound, tapi body-nya objek **SOAP** yang di dalamnya ada elemen `messages` berisi XML yang **di-gzip**. Satu elemen bisa berisi lebih dari satu pesan.
+
+Penerima harus: parse SOAP envelope → decompress gzip → baru dapat XML aslinya. Ini bukan `POST /webhook` dengan `application/json`.
+
+**2. Tidak bisa set Authorization header**
+Pertanyaan asli di r/CargoWise persis masalah ini — mencari di mana memasukkan API credential supaya HTTP call keluar dengan header `Authorization` yang benar. Jawabannya: **tidak bisa**.
+
+Autentikasi bukan lewat header, tapi lewat SOAP authentication yang tertanam di dalam body POST. Konfigurasi di CargoWise hanya dua field (`Maintain > System > Registry`):
+- `eAdaptor Outbound Password`
+- `Outbound eAdaptor Service URL`
+
+Tidak ada tempat untuk custom header, HMAC signature, atau bearer token.
+
+**3. Hanya SATU URL untuk seluruh instance**
+Setting di `Maintain > System > Registry > eServices > eAdaptor > Outbound Service URL` — **satu URL untuk semua yang pernah dipancarkan instance itu**.
+
+Bukan satu per tipe pesan. Bukan satu per recipient. Satu.
+
+Kalau accounting mau invoice, portal mau milestone, BI mau semua — mereka berebut satu URL. **CargoWise tidak punya fan-out.** Ubah URL = seluruh keran pindah.
+
+**4. Tidak ada delivery guarantee per-konsumen**
+Tidak bisa bilang "kalau sistem A mati, retry untuk A saja". Satu URL = satu kegagalan jadi tanggung jawab bersama. Tidak ada dead-letter queue bawaan.
+
+**5. Tidak ada replay**
+Kalau penerima error saat menerima, pesan hilang dari sisi kita. Bisa dilihat di **EDI Interchange**, tapi tidak ada tombol "kirim ulang ke URL saya".
+
+### Kelemahan webhook secara umum (berlaku bahkan untuk webhook modern)
+
+| Masalah | Konsekuensi |
+|---|---|
+| **Fire-and-forget** | Pengirim tidak tahu penerima berhasil proses atau tidak |
+| **Penerima mati = pesan hilang** | Butuh retry, dan pengirim harus mau retry |
+| **Tidak ada backpressure** | Banjir milestone = penerima kewalahan |
+| **Sulit di-debug** | "Apakah webhook-nya firing?" — harus cek log dua sisi |
+| **Security** | Butuh signature verification; CargoWise tidak menyediakannya |
+| **Ordering** | Jaminan urutan biasanya tidak ada |
+
+> Webhook bagus untuk notifikasi ringan. Dia **bukan** pengganti message queue yang andal.
+
+### Apa yang berubah di eAdaptor Next
+
+Klaim vendor konsultan menyebut eAdaptor Next mengganti **single endpoint dengan per-system channels**:
+- SFL Tech: *"Per system channels replace the single endpoint."*
+- Infologia: CargoWise telah menyoroti *"unique credentials per external system and multiple outbound endpoints"*
+
+> ⚠️ **Label:** ini klaim konsultan, bukan dokumentasi resmi. Halaman outbound Complect sendiri masih menulis *"eAdaptor Next guidance is coming soon"* — dokumentasi publik untuk outbound Next memang masih tipis. Konfirmasikan ke akun manager WiseTech sebelum masuk ke desain.
+
+Kalau benar, maka hambatan **#2 (auth header)** dan **#3 (single URL)** bisa hilang di Next. Itu perbaikan besar.
+
+**Yang tetap tidak berubah:**
+- SOAP diganti REST, **bukan** berarti jadi webhook JSON. Payload tetap XML (`UniversalInterchange`).
+- CargoWise tetap yang menentukan format — kita tetap harus parse Universal XML.
+- Tetap butuh **Workflow Template** sebagai pemicu.
+- Tetap **tidak ada jaminan delivery** setara message queue.
+
+### Pola yang harus dibangun: Relay Milik Sendiri
+
+```
+CargoWise Outbound (1 URL, SOAP)
+        ↓
+   RELAY MILIK KITA
+   1. Terima & ACK cepat (<1 detik)
+      → unwrap SOAP, simpan XML mentah, balas sukses
+   2. Klasifikasi
+      → baca tipe: UniversalShipment / UniversalEvent
+   3. Antrikan per konsumen
+      → satu job per konsumen, di message queue sungguhan
+        (RabbitMQ / SQS / Azure Service Bus)
+        BUKAN cron + tabel database
+   4. Kirim dengan retry
+      → budget retry independen per konsumen (3–5x, exponential backoff)
+      → dead-letter queue sendiri per konsumen
+```
+
+**Aturan routing masuk ke tabel subscription, bukan `if` statement.** Konsumen baru = satu `INSERT`, bukan deploy ulang.
+
+| Kegagalan | Dengan relay |
+|---|---|
+| Konsumen mati 4 jam | Antreannya menumpuk, terkuras saat pulih. Yang lain tidak terganggu |
+| Poison message | Masuk DLQ konsumen itu dengan XML mentah terlampir. Yang lain jalan terus |
+| Banjir pesan terkirim ulang | Dedup di pintu masuk menyerapnya. Nol duplikat ke hilir |
+
+Tanpa relay: satu kegagalan ditanggung semua konsumen lewat satu URL — "portal down" berubah jadi "accounting kehilangan invoice" dalam hitungan jam.
+
+### Ringkasan
+
+- **Kenapa tidak webhook saja?** Karena CargoWise tidak menyediakan webhook dalam pengertian modern — yang ada outbound service SOAP, satu URL, tanpa kontrol header, tanpa fan-out, tanpa retry per-konsumen.
+- **Apakah Next memperbaiki?** Kemungkinan besar ya untuk single-endpoint & auth — tapi itu klaim konsultan yang belum terverifikasi.
+- **Yang tetap harus dibangun sendiri:** relay dengan message queue, dedup, retry, DLQ. Bukan karena CargoWise kuno — tapi karena webhook pada umumnya memang bukan alat yang cukup untuk aliran data operasional yang bisnisnya bergantung padanya.
+
+### Sumber bagian ini
+- `complect.io/docs/cargowise-integrations/` — pernyataan "equivalent to webhooks" + single SOAP URL
+- `cargomo.de/articles/eadapter-single-outbound-url-relay` — analisis constraint + arsitektur relay
+- `reddit.com/r/CargoWise/comments/1jio2qd` — diskusi praktisi soal SOAP auth & gzip
+- `sfltech.ai/resources/soap-to-rest-rewrites-your-entire-integration-layer` — klaim per-system channels
+- `infologia.in` migration guide — klaim multiple outbound endpoints
+
+---
+
+## 7. Workflow Template — Pemicu Outbound
 
 Supaya CargoWise mengirim pesan keluar, harus ada **Workflow Template** (`Maintain > Workflow`).
 
@@ -275,7 +388,7 @@ Ini satu-satunya cara cepat menemukan kenapa trigger tidak jalan.
 
 ---
 
-## 7. Implikasi untuk Peran Backend Engineer
+## 8. Implikasi untuk Peran Backend Engineer
 
 ### Yang kemungkinan besar dibangun
 
@@ -308,7 +421,7 @@ Ini satu-satunya cara cepat menemukan kenapa trigger tidak jalan.
 
 ---
 
-## 8. Sumber Daya Praktis
+## 9. Sumber Daya Praktis
 
 ### Library open source
 
@@ -331,7 +444,7 @@ Ini satu-satunya cara cepat menemukan kenapa trigger tidak jalan.
 
 ---
 
-## 9. Ringkasan Satu Halaman
+## 10. Ringkasan Satu Halaman
 
 > **eAdaptor** = gateway XML CargoWise, tidak aktif default, dokumentasi tidak publik.
 > **eAdaptor Next** = versi modern: REST/HTTP + OAuth 2.0 (client certificate) + JWT, menggantikan SOAP. Legacy diprediksi pensiun Jan 2027 (klaim konsultan, belum terverifikasi resmi).
@@ -340,10 +453,11 @@ Ini satu-satunya cara cepat menemukan kenapa trigger tidak jalan.
 > **Middleware** = wajib kalau >1 sistem, karena outbound cuma boleh satu URL. Relay berfungsi: filter, transform, strip data sensitif, forward.
 > **Async everywhere** = kirim → dapat tracking UUID → cek status manual. Idempotency dan timeout handling bukan opsional, ini fondasi.
 > **Workflow Template** = pemicu outbound. Action XUS/XUE, Recipient ORP. Debug via Service Task `LWK`.
+> **Bukan webhook** = outbound service SOAP, body gzip XML, tanpa Authorization header, satu URL untuk semua. Relay sendiri (message queue + dedup + retry + DLQ) bukan opsional kalau >1 konsumen.
 
 ---
 
-## 10. Hubungan ke Topik Lain
+## 11. Hubungan ke Topik Lain
 
 - **Clean Architecture + CQRS** → relevan langsung untuk membangun adapter layer CargoWise. Lihat `Catatan_Onboarding_OneByOne.md`
 - **SAP ECC 6.0** → pola integrasi enterprise yang sama (async, idempotency, timeout tanpa kepastian). Lihat file yang sama
