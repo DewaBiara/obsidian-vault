@@ -349,7 +349,40 @@ Tanpa relay: satu kegagalan ditanggung semua konsumen lewat satu URL — "portal
 - **Apakah Next memperbaiki?** Kemungkinan besar ya untuk single-endpoint & auth — tapi itu klaim konsultan yang belum terverifikasi.
 - **Yang tetap harus dibangun sendiri:** relay dengan message queue, dedup, retry, DLQ. Bukan karena CargoWise kuno — tapi karena webhook pada umumnya memang bukan alat yang cukup untuk aliran data operasional yang bisnisnya bergantung padanya.
 
+### Perbandingan: kapan webhook CUKUP, kapan butuh relay
+
+Ini yang membuat pengalaman Stripe/Zoho tidak bisa digeneralisasi. Penentunya bukan besar-kecil proyek, tapi: **siapa yang menjamin pengiriman?**
+
+| Aspek | Stripe / Zoho | CargoWise |
+|---|---|---|
+| Transport | HTTPS POST + JSON | HTTPS POST + SOAP + XML gzip |
+| Auth | HMAC signature di header | SOAP auth di body, tanpa header |
+| Retry | Otomatis (Stripe 3 hari, Zoho 2 hari exponential backoff) | Tidak ada |
+| Fan-out | Multi endpoint | Satu URL |
+| Dedupe | Disediakan `event.id` | Tidak ada ID standar |
+| Dokumentasi | Publik, lengkap | Tidak publik, NDA |
+| Butuh relay sendiri? | **Tidak** | **Ya** |
+
+**Aturan praktis:**
+
+*Cukup webhook + queue (tanpa relay):* pengirim punya retry otomatis, signature verification, dan dukungan multi-endpoint — Stripe, Zoho, GitHub, Shopify, Twilio, Midtrans/Xendit.
+
+*Wajib relay milik sendiri:* pengirim cuma bisa satu URL, tanpa retry, tanpa signature, butuh fan-out — CargoWise, sebagian besar ERP enterprise legacy.
+
+**Yang tetap harus dibangun di KEDUA kasus:**
+- Verifikasi signature (kalau ada)
+- **Dedupe by event ID** — tidak bisa ditawar
+- ACK cepat, proses async (jangan kerjakan business logic di request handler)
+- Dead-letter untuk kegagalan permanen
+- Log payload mentah
+
+> **Kenapa dedupe wajib bahkan dengan Stripe:** retry itu normal, bukan error. Stripe timeout ~20 detik — kalau handler-mu lambat balas, event yang sama masuk dua kali. Duplikat bukan tanda ada yang rusak, itu bagian dari desain.
+
+> **Kenapa pengalaman Stripe tidak otomatis berlaku di CargoWise:** Stripe adalah *API-first company* — webhook adalah produk inti. CargoWise adalah *single-database ERP* — integrasi fitur tambahan yang dijual lewat konsultan. Standar yang diterima sebagai developer Stripe tidak berlaku; kamu harus membangun lapisan yang di sana sudah disediakan.
+
 ### Sumber bagian ini
+- `docs.stripe.com/webhooks` & `docs.stripe.com/events/manage-webhook-endpoints` — retry 3 hari, signature HMAC raw body, multi endpoint
+- `zoho.com/in/payments/developerdocs/webhooks/configure/` & `zoho.com/us/books/help/settings/automation/workflow-actions/webhooks.html` — retry 2 hari exponential backoff, non-2xx termasuk 3xx dihitung gagal
 - `complect.io/docs/cargowise-integrations/` — pernyataan "equivalent to webhooks" + single SOAP URL
 - `cargomo.de/articles/eadapter-single-outbound-url-relay` — analisis constraint + arsitektur relay
 - `reddit.com/r/CargoWise/comments/1jio2qd` — diskusi praktisi soal SOAP auth & gzip
